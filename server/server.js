@@ -1,4 +1,4 @@
-import express from 'express'; // Import express
+const express = require('express') // Import express
 const bodyParser = require('body-parser'); // to parse incoming request bodies in a middleware before your handlers, available under the req.body property.
 const cors = require('cors');  //to enable CORS with various options.
 
@@ -18,6 +18,7 @@ let data = []; // Array to store the data
 // Define route handler for GET requests to '/api/data'
 app.get('/api/data', (req, res) => {
     res.json(data); // Send the data as json
+    console.log("Data sent");
 });
 
 // Route to get a single data
@@ -43,6 +44,8 @@ app.post('/api/data', (req, res) => {
 
     data.push(record); // Add the new data to the data array
     res.status(201).json(record); // Send the new data as json
+
+    console.log("Data added with id: " + record.id);
 });
 
 // Route to update a data
@@ -54,7 +57,7 @@ app.put('/api/data/:id', (req, res) => {
     const updateRecord = req.body; // Get the new data from the request body
 
     data = data.map((d) => (d.id === id ? {...record, ...updateRecord}: d)); // Update the data
-    res.json(newData); // Send the updated data as json
+    res.json(updateRecord); // Send the updated data as json
 });
 
 // Route to delete a data
@@ -66,6 +69,8 @@ app.delete('/api/data/:id', (req, res) => {
 
     data = data.filter((d) => d.id !== id); // Filter out the data to be deleted
     res.json({message: 'Data deleted'}); // Send a success message
+
+    console.log("Data deleted with id: " + id);
 });
 
 // Start the server

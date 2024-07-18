@@ -1,1 +1,38 @@
- style.css script.js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mega Lorem Ipsum</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be inserted here -->
+            </tbody>
+        </table>
+        <button id="add-btn">Add Record</button>
+    </div>
+    <div id="popup" class="hidden">
+        <div class="popup-content">
+            <span id="close-popup">&times;</span>
+            <form id="record-form">
+                <input type="text" id="record-id" hidden>
+                <label for="name">Name:</label>
+                <input type="text" id="name" required>
+                <button id="save-btn" type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
