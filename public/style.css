@@ -42,10 +42,6 @@ body {
     border-bottom: 2px solid #009879;
 }
 
-#data-table tbody tr.active-row {
-    font-weight: bold;
-    color: #009879;
-}
 
 /* animation on insertion of row */
 @keyframes fadeInRow {
@@ -73,7 +69,7 @@ body {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .popup-content {
@@ -81,7 +77,9 @@ body {
     padding: 3rem;
     border-radius: 10px;
     position: relative;
-    animation: fadeIn 0.3s;
+    /* fade in and fade out animation */
+    animation: fadeIn 0.5s;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 /* Name input */
@@ -176,4 +174,72 @@ body {
 .edit-btn:active, .delete-btn:active {
     transform: translateY(1px);
     transition: transform 0.2s;
+}
+
+/* Action buttons */
+
+.actions{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+
+}
+
+/* Media queries Mobile responsiove: 360x800 */
+@media screen and (width <= 430px) {
+
+    #data-table {
+        font-size: 0.8em;
+    }
+
+    #data-table th, #data-table td {
+        padding: 10px 12px;
+    }
+
+    #data-table thead tr {
+        font-size: 0.8em;
+    }
+
+    #data-table tbody tr {
+        font-size: 0.8em;
+    }
+
+    #data-table tbody tr:last-of-type {
+        font-size: 0.8em;
+    }
+
+    #popup {
+        padding: 0;
+    }
+
+    .popup-content {
+        padding: 2rem;
+    }
+
+    #name {
+        padding: 8px;
+        margin: 8px 0;
+    }
+
+    #save-btn {
+        padding: 8px 16px;
+        margin-top: 16px;
+    }
+
+    #close-popup {
+        font-size: 1.5em;
+    }
+
+    #add-btn {
+        padding: 8px 16px;
+        margin-bottom: 16px;
+    }
+
+    .edit-btn, .delete-btn {
+        padding: 8px 16px;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
 }
