@@ -1,3 +1,7 @@
+* {
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
     font-family: Arial, sans-serif;
 }
@@ -125,6 +129,8 @@ body {
     cursor: pointer;
 }
 
+
+
 /* Button CSS */
 #add-btn{
     background-color: #009879;
@@ -188,12 +194,16 @@ body {
 /* Media queries Mobile responsiove: 360x800 */
 @media screen and (width <= 430px) {
 
+    #app {
+        padding: 0px;
+    }
+
     #data-table {
         font-size: 0.8em;
     }
 
     #data-table th, #data-table td {
-        padding: 10px 12px;
+        padding: 10px 5px;
     }
 
     #data-table thead tr {
@@ -236,7 +246,8 @@ body {
     }
 
     .edit-btn, .delete-btn {
-        padding: 8px 16px;
+        padding: 8px 10px;
+        font-size: 1em;
     }
 
     .actions {

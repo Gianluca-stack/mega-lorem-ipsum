@@ -49,10 +49,6 @@ app.post('/api/data', (req, res) => {
 
     data.push(record); // Add the new data to the data array
     res.status(201).json(record); // Send the new data as json
-
-    console.log("-------------------Data Insertion Complete----------------------");
-    console.log("Data added with id: " + record.id);
-    console.log("----------------------------------------------------------------");
 });
 
 // Route to update a data
@@ -75,13 +71,11 @@ app.put('/api/data/:id', (req, res) => {
     }
 
     record.name = name; // Update the name
+    const current_data = new Date().toISOString().slice(0, 10);
+    const current_time = new Date().toLocaleTimeString();
+    record.updated_at =  current_data + " | " + current_time; // Update the updated_at field
 
     res.status(200).json(record); // Send the updated data as JSON
-
-    console.log("-------------------Data Updation Complete----------------------");
-    console.log("Data updated with id: " + record.id);
-    console.log(data)
-    console.log("----------------------------------------------------------------");
 });
 
 // Route to delete a data
@@ -103,7 +97,3 @@ const PORT = 8000; // Set the port
 app.listen(PORT, () => {
     console.log(`Server is running on PORT: ${PORT}`);
 });
-
-
-
-

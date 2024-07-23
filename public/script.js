@@ -11,12 +11,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const recordIdInput = document.querySelector('#record-id');
     const nameInput = document.querySelector('#name');
 
+    
+    // limit table to 200 records
+    const limit = 200;
+    var record_count = 0;
+
     // Fetch data from the server
     const fetchData = async () => {
         const response = await fetch(apiUrl);
         const data = await response.json();
         console.log('Data:', data);
         renderTable(data);
+        if (record_count >= limit) {
+            addBtn.disabled = true;
+        }
     }; 
 
     // Render the table with the data
@@ -28,6 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
             row.innerHTML = `
                 <td>${record.id}</td>
                 <td>${record.name}</td>
+                <td>${record.created_at}</td>
+                <td>${record.updated_at}</td>
                 <td>
                     <div class="actions">
                         <button class="edit-btn" data-id="${record.id}">Update</button>
@@ -100,25 +110,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Save the record to the server
     const saveRecord = async (e) => {
-        console.log("saveRecord");
-        e.preventDefault();
-        const id = recordIdInput.value;
-        const name = nameInput.value;
-        const method = id ? 'PUT' : 'POST'; // If id exists, update the record, otherwise create a new one
-        const url = id ? `${apiUrl}/${id}` : apiUrl; // If id exists, update the record, otherwise create a new one
-        const response = await fetch(url, {
-            method,
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name })
-        });
+    console.log("saveRecord");
+    e.preventDefault();
+    const id = recordIdInput.value;
+    const name = nameInput.value;
+    const current_data = new Date().toISOString().slice(0, 10);
+    const current_time = new Date().toLocaleTimeString();
+    const created_at = id ? undefined : current_data + " | " + current_time; // Only set created_at if creating a new record
+    const updated_at = "" // Always set updated_at to the current timestamp
 
-        // If the response is successful, fetch the data from the server and close the popup window
-        if (response.ok) {
-            fetchData();
-            closePopupWindow();
-        }
+    const method = id ? 'PUT' : 'POST'; // If id exists, update the record, otherwise create a new one
+
+    if(method == 'POST') {
+        record_count = record_count + 1;
+    }
+
+    const url = id ? `${apiUrl}/${id}` : apiUrl; // If id exists, update the record, otherwise create a new one
+    const response = await fetch(url, {
+        method,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, created_at, updated_at })
+    });
+
+    if (response.ok) {
+        // Fetch the data from the server and close the popup window
+        fetchData();
+        closePopupWindow();
+    }
     };
 
     function deleteRecord(e) {
@@ -142,6 +162,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (record) {
                 dataTable.removeChild(record);
             }
+
+            record_count = record_count - 1;
         } else {
             console.error('ID is undefined');
         }
