@@ -1,0 +1,16 @@
+{
+    "name": "mega-lorem-ipsum-tech_interview",
+    "version": "1.0.0",
+    "description": "A project using Express, body-parser, and other dependencies",
+    "main": "server/server.js",
+    "scripts": {
+      "start": "node server/server.js"
+    },
+    "dependencies": {
+      "express": "^4.17.1",
+      "body-parser": "^1.19.0",
+      "cors": "^2.8.5",
+      "uuid": "^8.3.2"
+    }
+  }
+  
